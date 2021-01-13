@@ -9,7 +9,7 @@ export interface MakeNodesDraggable {
   drag?(): void;
 }
 
-export function makeNodesDraggable(
+export function makeNodesDraggable (
   options: MakeNodesDraggable,
 ) {
   const {
@@ -28,7 +28,7 @@ export function makeNodesDraggable(
   draghandlerr(d3.selectAll(nodesSelector));
 }
 
-function defaultStart(
+function defaultStart (
   simulation: d3.Simulation<Node, Link>,
 ) {
   return (e: any) => {
@@ -37,7 +37,7 @@ function defaultStart(
 }
 
 // @ts-ignore
-function defaultDrag(
+function defaultDrag (
   simulation: d3.Simulation<Node, Link>,
 ) {
   return (e: any) => {
@@ -46,7 +46,7 @@ function defaultDrag(
   };
 }
 
-function defaultEnd(simulation: d3.Simulation<Node, Link>) {
+function defaultEnd (simulation: d3.Simulation<Node, Link>) {
   return (e: any) => {
     if (!e.active) simulation.alphaTarget(0);
     e.subject.fx = e.x;

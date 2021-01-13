@@ -1,23 +1,27 @@
-import { NodeSelection, LinkSelection } from './types';
+import { calculateLinkLabelPosition } from './calculate-link-label-position';
+import { NodeSelection, LinkSelection, NodeLabelSelection, LinkLabelSelection } from './types';
 
-export function getTickActions(node: NodeSelection, link: LinkSelection) {
+export function getTickActions (
+  node: NodeSelection,
+  link: LinkSelection,
+  nodeLabel: NodeLabelSelection,
+  linkLabel: LinkLabelSelection) {
   return () => {
-    // update circle positions each tick of the simulation
     node
-      .attr('cx', function (d: any) {
-        return Math.max(0, d.x);
-      })
-      .attr('cy', function (d: any) {
-        return Math.max(0, d.y);
-      });
+      .attr('cx', ({ x }) => `${x}`)
+      .attr('cy', ({ y }) => `${y}`);
+    nodeLabel
+      .attr('x', ({ x }) => `${x}`)
+      .attr('y', ({ y }) => `${y}`);
 
-    // update link positions
-    // simply tells one end of the line to follow one node around
-    // and the other end of the line to follow the other node around
     link
-      .attr('x1', function (d: any) { return d.source.x })
-      .attr('y1', function (d: any) { return d.source.y })
-      .attr('x2', function (d: any) { return d.target.x })
-      .attr('y2', function (d: any) { return d.target.y })
+      .attr('x1', ({ source: { x } }) => `${x}`)
+      .attr('y1', ({ source: { y } }) => `${y}`)
+      .attr('x2', ({ target: { x } }) => `${x}`)
+      .attr('y2', ({ target: { y } }) => `${y}`);
+
+    linkLabel
+      .attr('x', calculateLinkLabelPosition('x'))
+      .attr('y', calculateLinkLabelPosition('y'));
   };
 }

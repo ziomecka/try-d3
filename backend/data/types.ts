@@ -4,16 +4,19 @@ export interface TopologyData {
   nodeSets: NodeSet[];
 }
 
-export interface Node {
+export interface Node extends Coordinates{
   id: NodeId;
-  x: number;
-  y: number;
   name?: string
 };
 
+interface Coordinates {
+  x: number;
+  y: number;
+}
+
 export interface Link {
   source: NodeId;
-  target: NodeId
+  target: NodeId;
 };
 
 export interface NodeSet {
@@ -22,4 +25,4 @@ export interface NodeSet {
   root: NodeId
 }
 
-type NodeId = number | string;
+type NodeId = string;

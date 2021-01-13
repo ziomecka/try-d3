@@ -1,4 +1,4 @@
-import {draw} from './draw'
+import { draw } from './draw';
 
 draw();
 
